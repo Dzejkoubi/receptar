@@ -33,15 +33,14 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   fonts:
-    - family: SourGummy-Black
+    - family: SourGummy
       fonts:
-        - asset: assets/fonts/SourGummy/SourGummy-Black.ttf
+        - asset: fonts/SourGummy/SourGummy-Regular.ttf
+        - asset: fonts/SourGummy/SourGummy-Light.ttf
+          weight: 300
+        - asset: fonts/SourGummy/SourGummy-Bold.ttf
+          weight: 700
+        - asset: fonts/SourGummy/SourGummy-Black.ttf
           weight: 900
-    - family: SourGummy-Regular
-      fonts:
-        - asset: assets/fonts/SourGummy/SourGummy-Regular.ttf
-          weight: 400
-    - family: SourGummy-Thin
-      fonts:
-        - asset: assets/fonts/SourGummy/SourGummy-Thin.ttf
-          weight: 100
+
+          style: italic

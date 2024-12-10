@@ -10,7 +10,8 @@ class StyledHeadingText extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        fontFamily: 'SourGummy-Black',
+        fontFamily: 'SourGummy',
+        fontWeight: FontWeight.w300,
         fontSize: 36,
         color: StyleConstants.primaryTextColor,
       ),
@@ -27,9 +28,10 @@ class StyledBodyText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontFamily: 'SourGummy-Regular',
-        fontSize: 32,
+        fontFamily: 'SourGummy',
+        fontSize: 24,
         color: StyleConstants.primaryTextColor,
+        fontWeight: FontWeight.w400,
       ),
     );
   }
@@ -44,8 +46,9 @@ class StyledSmallText extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        fontFamily: 'SourGummy-Light',
-        fontSize: 24,
+        fontFamily: 'SourGummy',
+        fontWeight: FontWeight.w300,
+        fontSize: 16,
         color: StyleConstants.primaryTextColor,
       ),
     );

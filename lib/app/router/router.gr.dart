@@ -10,6 +10,25 @@
 part of 'router.dart';
 
 /// generated route for
+/// [RandomRecepieScreen]
+class RandomRecepieRoute extends PageRouteInfo<void> {
+  const RandomRecepieRoute({List<PageRouteInfo>? children})
+      : super(
+          RandomRecepieRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RandomRecepieRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RandomRecepieScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [WelcomeScreen]
 class WelcomeRoute extends PageRouteInfo<void> {
   const WelcomeRoute({List<PageRouteInfo>? children})

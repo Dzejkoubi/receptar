@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:receptar/app/const/style_constants.dart';
+import 'package:receptar/app/router/router.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 
 @RoutePage()
@@ -15,7 +16,7 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   double _top = 380.0;
-  double _left = 230.0;
+  double _left = 200.0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +27,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Center(
             child: GestureDetector(
               onTap: () {
-                print("Navigating to Receptář");
+                AutoRouter.of(context).replaceNamed('/randomRecepie');
               },
-              child: Text("Receptář",
-                  style: const TextStyle(
-                    fontFamily: 'SourGummy-Black',
-                    fontSize: 48,
-                    color: StyleConstants.primaryTextColor,
-                  )),
+              child: Text(
+                "Receptář",
+                style: TextStyle(
+                  fontFamily: 'SourGummy',
+                  fontWeight: FontWeight.w900,
+                  fontSize: 54,
+                  color: StyleConstants.primaryTextColor,
+                ),
+              ),
             ),
           ),
           Positioned(
