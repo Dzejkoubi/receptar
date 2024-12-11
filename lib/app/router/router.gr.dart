@@ -10,6 +10,44 @@
 part of 'router.dart';
 
 /// generated route for
+/// [FindRecepieScreen]
+class FindRecepieRoute extends PageRouteInfo<void> {
+  const FindRecepieRoute({List<PageRouteInfo>? children})
+      : super(
+          FindRecepieRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FindRecepieRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FindRecepieScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [LikedRecepiesScreen]
+class LikedRecepiesRoute extends PageRouteInfo<void> {
+  const LikedRecepiesRoute({List<PageRouteInfo>? children})
+      : super(
+          LikedRecepiesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LikedRecepiesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LikedRecepiesScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [RandomRecepieScreen]
 class RandomRecepieRoute extends PageRouteInfo<void> {
   const RandomRecepieRoute({List<PageRouteInfo>? children})
@@ -24,6 +62,25 @@ class RandomRecepieRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const RandomRecepieScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ShowRecepieScreen]
+class ShowRecepieRoute extends PageRouteInfo<void> {
+  const ShowRecepieRoute({List<PageRouteInfo>? children})
+      : super(
+          ShowRecepieRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ShowRecepieRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ShowRecepieScreen();
     },
   );
 }

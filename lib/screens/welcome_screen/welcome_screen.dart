@@ -15,8 +15,8 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  double _top = 380.0;
-  double _left = 200.0;
+  double _top = 400.0;
+  double _left = 240.0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,34 +29,29 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               onTap: () {
                 AutoRouter.of(context).replaceNamed('/randomRecepie');
               },
-              child: Text(
-                "Receptář",
-                style: TextStyle(
-                  fontFamily: 'SourGummy',
-                  fontWeight: FontWeight.w900,
-                  fontSize: 54,
-                  color: StyleConstants.primaryTextColor,
-                ),
-              ),
+              child: Text("Receptář",
+                  style: StyleConstants.headingTextStyle.copyWith(
+                    fontSize: 56,
+                  )),
             ),
           ),
           Positioned(
             top: _top,
             left: _left,
             child: GestureDetector(
-              onPanUpdate: (details) {
-                setState(() {
-                  _top = (_top + details.delta.dy)
-                      .clamp(50.0, MediaQuery.of(context).size.height - 50);
-                  _left = (_left + details.delta.dx)
-                      .clamp(5.0, MediaQuery.of(context).size.width - 100);
-                });
-              },
-              child: Transform.rotate(
-                angle: 20 * pi / 180,
-                child: const StyledSmallText(text: "Klikni na mě👇"),
-              ),
-            ),
+                onPanUpdate: (details) {
+                  setState(() {
+                    _top = (_top + details.delta.dy)
+                        .clamp(50.0, MediaQuery.of(context).size.height - 50);
+                    _left = (_left + details.delta.dx)
+                        .clamp(5.0, MediaQuery.of(context).size.width - 100);
+                  });
+                },
+                child: Transform.rotate(
+                  angle: 20 * pi / 180,
+                  child: Text("Klikni na mě👇",
+                      style: StyleConstants.bodyTextStyle),
+                )),
           ),
         ],
       ),

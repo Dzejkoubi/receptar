@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:receptar/screens/random_recepie_screen/random_recepie_screen.dart';
+import 'package:receptar/screens/liked_recepies_screen/liked_recepies_screen.dart';
+import 'package:receptar/screens/find_recepie_screen/find_recepie_screen.dart';
+import 'package:receptar/screens/show_recepie_screen/show_recepie_screen.dart';
 import 'package:receptar/screens/welcome_screen/welcome_screen.dart';
 
 part 'router.gr.dart';
@@ -8,12 +11,37 @@ part 'router.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: WelcomeRoute.page, initial: true, children: [
-          AutoRoute(page: RandomRecepieRoute.page, path: 'randomRecepie'),
-        ])
+        CustomRoute(
+          page: WelcomeRoute.page,
+          initial: true,
+          path: '/',
+        ),
+        CustomRoute(
+          page: RandomRecepieRoute.page,
+          path: '/randomRecepie',
+          transitionsBuilder: TransitionsBuilders.slideLeft,
+          durationInMilliseconds: 300,
+        ),
+        CustomRoute(
+          page: LikedRecepiesRoute.page,
+          path: '/likedRecepies',
+          transitionsBuilder: TransitionsBuilders.slideLeft,
+          durationInMilliseconds: 300,
+        ),
+        CustomRoute(
+          page: FindRecepieRoute.page,
+          path: '/findRecepie',
+          transitionsBuilder: TransitionsBuilders.slideLeft,
+          durationInMilliseconds: 300,
+        ),
+        CustomRoute(
+          page: ShowRecepieRoute.page,
+          path: '/recepie',
+          transitionsBuilder: TransitionsBuilders.slideLeft,
+          durationInMilliseconds: 300,
+        ),
       ];
 }
 
-
-//For update run: flutter pub run build_runner build
-//For watch run: flutter pub run build_runner watch
+// For update run: flutter pub run build_runner build
+// For watch run: flutter pub run build_runner watch

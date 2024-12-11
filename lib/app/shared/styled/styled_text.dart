@@ -9,13 +9,37 @@ class StyledHeadingText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-        fontFamily: 'SourGummy',
-        fontWeight: FontWeight.w300,
-        fontSize: 36,
-        color: StyleConstants.primaryTextColor,
+      style: StyleConstants.headingTextStyle,
+    );
+  }
+}
+
+class StyledSubHeadingText extends StatelessWidget {
+  const StyledSubHeadingText({required this.text, super.key});
+
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: StyleConstants.headingTextStyle.copyWith(
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
       ),
     );
+  }
+}
+
+class StyledBodyTextImportant extends StatelessWidget {
+  const StyledBodyTextImportant({required this.text, super.key});
+
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        style: StyleConstants.bodyTextStyle.copyWith(
+          fontWeight: FontWeight.w700,
+        ));
   }
 }
 
@@ -27,30 +51,7 @@ class StyledBodyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
-        fontFamily: 'SourGummy',
-        fontSize: 24,
-        color: StyleConstants.primaryTextColor,
-        fontWeight: FontWeight.w400,
-      ),
-    );
-  }
-}
-
-class StyledSmallText extends StatelessWidget {
-  const StyledSmallText({required this.text, super.key});
-
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontFamily: 'SourGummy',
-        fontWeight: FontWeight.w300,
-        fontSize: 16,
-        color: StyleConstants.primaryTextColor,
-      ),
+      style: StyleConstants.bodyTextStyle,
     );
   }
 }
