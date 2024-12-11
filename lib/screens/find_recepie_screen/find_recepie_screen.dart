@@ -14,15 +14,10 @@ class FindRecepieScreen extends StatelessWidget {
       backgroundColor: StyleConstants.backgroundColor,
       appBar: AppBar(
         backgroundColor: StyleConstants.backgroundColor,
-        title: const Text("Najít recept"),
+        title: const StyledHeadingText(text: "Najít recept"),
       ),
       body: Center(
-        child: Text(
-          "Najít recept",
-          style: TextStyle(
-            fontSize: 24,
-          ),
-        ),
+        child: const StyledBodyText(text: "FindRecepie"),
       ),
       bottomNavigationBar: BottomNavBar(currentIndex: 1),
     );

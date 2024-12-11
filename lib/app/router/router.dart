@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:receptar/screens/random_recepie_screen/random_recepie_screen.dart';
 import 'package:receptar/screens/liked_recepies_screen/liked_recepies_screen.dart';
 import 'package:receptar/screens/find_recepie_screen/find_recepie_screen.dart';
-import 'package:receptar/screens/show_recepie_screen/show_recepie_screen.dart';
+import 'package:receptar/screens/show_recepie_screens/show_recepie_fullscreen.dart';
 import 'package:receptar/screens/welcome_screen/welcome_screen.dart';
 
 part 'router.gr.dart';
