@@ -19,25 +19,25 @@ class AppRouter extends RootStackRouter {
         CustomRoute(
           page: RandomRecepieRoute.page,
           path: '/randomRecepie',
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.noTransition,
           durationInMilliseconds: 300,
         ),
         CustomRoute(
           page: LikedRecepiesRoute.page,
           path: '/likedRecepies',
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.noTransition,
           durationInMilliseconds: 300,
         ),
         CustomRoute(
           page: FindRecepieRoute.page,
           path: '/findRecepie',
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.noTransition,
           durationInMilliseconds: 300,
         ),
         CustomRoute(
           page: ShowRecepieRoute.page,
           path: '/recepie',
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.noTransition,
           durationInMilliseconds: 300,
         ),
       ];

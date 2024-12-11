@@ -4,8 +4,8 @@ class StyleConstants {
   // Colors
   static const Color primaryColor = Color.fromARGB(255, 241, 207, 55);
   static const Color backgroundColor = Color.fromARGB(255, 243, 243, 137);
-  static const Color primaryTextColor = Color(0xFF212121);
-  static const Color secondaryTextColor = Color(0x80757575);
+  static const Color primaryTextColor = Colors.black;
+  static const Color secondaryTextColor = Colors.black45;
   static const Color accentColor = Color(0xFF00BFA5);
 
   // Text Styles
