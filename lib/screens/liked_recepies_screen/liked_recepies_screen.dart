@@ -23,8 +23,8 @@ class LikedRecepiesScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ShowRecepieSmalltab(),
               ShowRecepieLargetab(),
+              ShowRecepieSmalltab(),
             ],
           )),
       bottomNavigationBar: BottomNavBar(currentIndex: 0),

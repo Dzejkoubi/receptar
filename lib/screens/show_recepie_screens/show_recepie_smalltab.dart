@@ -17,14 +17,25 @@ class _ShowRecepieSmalltabState extends State<ShowRecepieSmalltab> {
     return Container(
       decoration: BoxDecoration(
         color: StyleConstants.primaryColor,
+        borderRadius: StyleConstants.borderRadius,
       ),
       child: Row(
         children: [
-          Image.asset(
-            "assets/images/food_images/lasagne.png",
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: StyleConstants.borderRadius.topLeft,
+                bottomLeft: StyleConstants.borderRadius.bottomLeft),
+            child: Image.asset(
+              "assets/images/food_images/lasagne.png",
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Container(
+            width: 1,
             height: 100,
-            width: 100,
-            fit: BoxFit.cover,
+            color: StyleConstants.secondaryTextColor,
           ),
           Expanded(
               child: Column(
@@ -33,24 +44,30 @@ class _ShowRecepieSmalltabState extends State<ShowRecepieSmalltab> {
               const StyledBodyText(text: "Popis receptu"),
             ],
           )),
-          // Divider(
-          //   color: StyleConstants.secondaryTextColor,
-          //   thickness: 2,
-          // ),
-          Column(
-            children: [
-              IconButton(
-                icon: Icon(isFavorite
-                    ? Icons.favorite_rounded
-                    : Icons.favorite_border_rounded),
-                onPressed: () {
-                  setState(() {
-                    isFavorite = !isFavorite;
-                  });
-                },
-              ),
-              StyledBodyText(text: "Pokročilé"),
-            ],
+          Container(
+            width: 1,
+            height: 100,
+            color: StyleConstants.secondaryTextColor,
+          ),
+          SizedBox(
+            width: 100,
+            height: 100,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(isFavorite
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_border_rounded),
+                  onPressed: () {
+                    setState(() {
+                      isFavorite = !isFavorite;
+                    });
+                  },
+                ),
+                StyledBodyText(text: "Pokročilé"),
+              ],
+            ),
           )
         ],
       ),

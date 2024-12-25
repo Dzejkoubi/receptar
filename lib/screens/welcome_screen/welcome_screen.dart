@@ -3,8 +3,6 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:receptar/app/const/style_constants.dart';
-import 'package:receptar/app/router/router.dart';
-import 'package:receptar/app/shared/styled/styled_text.dart';
 
 @RoutePage()
 class WelcomeScreen extends StatefulWidget {
