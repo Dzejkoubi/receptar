@@ -31,8 +31,8 @@ class StyleConstants {
   static const List<BoxShadow> boxShadow = [
     BoxShadow(
       color: Colors.black26,
-      blurRadius: 20,
-      offset: Offset(0, 4),
+      blurRadius: 5,
+      offset: Offset(0, 8),
     ),
   ];
 

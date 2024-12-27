@@ -23,10 +23,17 @@ class LikedRecepiesScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ShowRecepieLargetab(),
-              ShowRecepieSmalltab(),
+              ShowRecepieSmallTab(),
+              SizedBox(height: 16),
+              ShowRecepieLargeTab(),
             ],
           )),
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () {
+          // print(
+          //     "Width: ${MediaQuery.of(context).size.width}\n Height: ${MediaQuery.of(context).size.height}");
+        },
+      ),
       bottomNavigationBar: BottomNavBar(currentIndex: 0),
     );
   }

@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 
-class ShowRecepieSmalltab extends StatefulWidget {
-  const ShowRecepieSmalltab({super.key});
+class ShowRecepieSmallTab extends StatefulWidget {
+  const ShowRecepieSmallTab({super.key});
 
   @override
-  State<ShowRecepieSmalltab> createState() => _ShowRecepieSmalltabState();
+  State<ShowRecepieSmallTab> createState() => _ShowRecepieSmallTabState();
 }
 
-class _ShowRecepieSmalltabState extends State<ShowRecepieSmalltab> {
+class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
   bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: StyleConstants.primaryColor,
         borderRadius: StyleConstants.borderRadius,
+        boxShadow: StyleConstants.boxShadow,
       ),
       child: Row(
         children: [
@@ -39,6 +41,7 @@ class _ShowRecepieSmalltabState extends State<ShowRecepieSmalltab> {
           ),
           Expanded(
               child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const StyledBodyTextImportant(text: "Recept"),
               const StyledBodyText(text: "Popis receptu"),
