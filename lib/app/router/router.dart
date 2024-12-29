@@ -35,7 +35,7 @@ class AppRouter extends RootStackRouter {
           durationInMilliseconds: 300,
         ),
         CustomRoute(
-          page: ShowRecepieRoute.page,
+          page: ShowRecepieFullRoute.page,
           path: '/recepie',
           transitionsBuilder: TransitionsBuilders.noTransition,
           durationInMilliseconds: 300,

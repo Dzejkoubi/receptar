@@ -4,7 +4,7 @@ import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/router/router.dart';
 
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({required this.currentIndex, super.key});
+  BottomNavBar({required this.currentIndex, super.key});
 
   final int currentIndex;
 
@@ -19,26 +19,15 @@ class BottomNavBar extends StatelessWidget {
         backgroundColor: StyleConstants.primaryColor,
         currentIndex: currentIndex,
         onTap: (index) {
-          switch (index) {
-            case 0:
-              context.router.pushAndPopUntil(
-                const LikedRecepiesRoute(),
-                predicate: (route) => false,
-              );
-              break;
-            case 1:
-              context.router.pushAndPopUntil(
-                const FindRecepieRoute(),
-                predicate: (route) => false,
-              );
-              break;
-            case 2:
-              context.router.pushAndPopUntil(
-                const RandomRecepieRoute(),
-                predicate: (route) => false,
-              );
-              break;
-          }
+          final routes = [
+            const LikedRecepiesRoute(),
+            const FindRecepieRoute(),
+            const RandomRecepieRoute(),
+          ];
+          context.router.pushAndPopUntil(
+            routes[index],
+            predicate: (route) => false,
+          );
         },
         items: const [
           BottomNavigationBarItem(

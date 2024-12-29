@@ -67,20 +67,20 @@ class RandomRecepieRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [ShowRecepieScreen]
-class ShowRecepieRoute extends PageRouteInfo<void> {
-  const ShowRecepieRoute({List<PageRouteInfo>? children})
+/// [ShowRecepieFullScreen]
+class ShowRecepieFullRoute extends PageRouteInfo<void> {
+  const ShowRecepieFullRoute({List<PageRouteInfo>? children})
       : super(
-          ShowRecepieRoute.name,
+          ShowRecepieFullRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'ShowRecepieRoute';
+  static const String name = 'ShowRecepieFullRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ShowRecepieScreen();
+      return const ShowRecepieFullScreen();
     },
   );
 }

@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:receptar/app/const/style_constants.dart';
+import 'package:receptar/app/router/router.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
+import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
 
 class ShowRecepieLargeTab extends StatefulWidget {
   const ShowRecepieLargeTab({super.key});
@@ -40,6 +43,20 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                         fit: BoxFit.cover,
                       ),
                     ),
+                    StyledBodyTextImportant(text: "Ingredience:"),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                          children: [
+                            ...List.generate(10, (index) {
+                              return StyledBodyText(
+                                  text: "Parmigiano-Reggiano$index");
+                            }),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 Expanded(
@@ -48,57 +65,71 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  backgroundColor: StyleConstants.primaryColor,
-                                  title: StyledHeadingText(
-                                    text: "Recepie name",
-                                  ),
-                                  content: StyledBodyText(
-                                    text:
-                                        "This is a detailed description of the recepie.lorem ipsum dolor sit amet, consectetur adipiscing elit. lorem ipsum lorem lorem ipThis is a detailed description of the recepie.lorem ipsum dolor sit amet, consectetur adipiscing elit. lorem ipsum lorem lorem ip",
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      child: StyledBodyTextImportant(
-                                          text: "Close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              StyledBodyTextImportant(text: "Recept"),
-                              Icon(
-                                Icons.info_outline,
-                                color: StyleConstants.secondaryTextColor,
-                                size: 18,
-                              ),
-                            ],
-                          ),
+                        Row(
+                          children: [
+                            StyledBodyTextImportant(text: "Recept"),
+                            Expanded(child: Container()),
+                            Row(
+                              children: [
+                                FavoriteButtonWidget(
+                                  isFavorite: isFavorite,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      isFavorite = newValue;
+                                    });
+
+                                    // Additional logic for handling favorites
+                                    // DO LATER
+                                    if (newValue) {
+                                      print("Added to favorites!");
+                                    } else {
+                                      print("Removed from favorites!");
+                                    }
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.fullscreen),
+                                  onPressed: () {
+                                    AutoRouter.of(context).push(
+                                      const ShowRecepieFullRoute(),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: List.generate(5, (index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: StyledBodyText(text: "RecepieTag$index"),
+                              return Container(
+                                margin: const EdgeInsets.only(right: 8.0),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 4.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: StyleConstants.secondaryTextColor
+                                      .withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: StyledBodyText(
+                                  text: "Tag $index",
+                                ),
                               );
                             }),
                           ),
                         ),
-                        StyledBodyTextImportant(text: "Postup"),
+                        StyledBodyTextImportant(text: "Postup:"),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: StyledBodyText(
+                              text:
+                                  "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.",
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

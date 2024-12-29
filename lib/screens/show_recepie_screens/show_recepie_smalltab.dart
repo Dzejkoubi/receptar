@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:receptar/app/const/style_constants.dart';
+import 'package:receptar/app/router/router.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
+import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
 
 class ShowRecepieSmallTab extends StatefulWidget {
   const ShowRecepieSmallTab({super.key});
@@ -44,7 +47,30 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const StyledBodyTextImportant(text: "Recept"),
-              const StyledBodyText(text: "Popis receptu"),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ...List.generate(5, (index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 8.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 4.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: StyleConstants.secondaryTextColor
+                              .withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: StyledBodyText(
+                          text: "Tag $index",
+                        ),
+                      );
+                    })
+                  ],
+                ),
+              )
             ],
           )),
           Container(
@@ -58,15 +84,33 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: Icon(isFavorite
-                      ? Icons.favorite_rounded
-                      : Icons.favorite_border_rounded),
-                  onPressed: () {
-                    setState(() {
-                      isFavorite = !isFavorite;
-                    });
-                  },
+                Row(
+                  children: [
+                    FavoriteButtonWidget(
+                      isFavorite: isFavorite,
+                      onChanged: (newValue) {
+                        setState(() {
+                          isFavorite = newValue;
+                        });
+
+                        // Additional logic for handling favorites
+                        // DO LATER
+                        if (newValue) {
+                          print("Added to favorites!");
+                        } else {
+                          print("Removed from favorites!");
+                        }
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.fullscreen),
+                      onPressed: () {
+                        AutoRouter.of(context).push(
+                          const ShowRecepieFullRoute(),
+                        );
+                      },
+                    ),
+                  ],
                 ),
                 StyledBodyText(text: "Pokročilé"),
               ],
