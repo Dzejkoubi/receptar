@@ -4,6 +4,7 @@ import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/helper_widgets.dart';
 import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
+import 'package:receptar/app/shared/widgets/styled_button.dart';
 import 'package:receptar/app/shared/widgets/styled_divider.dart';
 import 'package:receptar/app/shared/widgets/youtube_video_widget.dart';
 import 'package:receptar/models/recepe_model.dart';
@@ -89,10 +90,10 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                               vertical: 6.0,
                             ),
                             decoration: BoxDecoration(
-                              color: StyleConstants.lowOpacityTextColor,
+                              color: StyleConstants.primaryColor,
                               borderRadius: StyleConstants.borderRadius,
                             ),
-                            child: StyledBodyText(
+                            child: StyledBodyTextImportant(
                               text: testMealMap["tags"][index],
                             ),
                           );
@@ -107,10 +108,10 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                           vertical: 6.0,
                         ),
                         decoration: BoxDecoration(
-                          color: StyleConstants.lowOpacityTextColor,
+                          color: StyleConstants.primaryColor,
                           borderRadius: StyleConstants.borderRadius,
                         ),
-                        child: StyledBodyText(
+                        child: StyledBodyTextImportant(
                           text: testMealMap["category"],
                         ),
                       ),
@@ -123,10 +124,10 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                           vertical: 6.0,
                         ),
                         decoration: BoxDecoration(
-                          color: StyleConstants.lowOpacityTextColor,
+                          color: StyleConstants.primaryColor,
                           borderRadius: StyleConstants.borderRadius,
                         ),
-                        child: StyledBodyText(
+                        child: StyledBodyTextImportant(
                           text: testMealMap["area"],
                         ),
                       ),
@@ -136,54 +137,82 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
               ),
               StyledDivider(),
 
-              VerticalSpace(
-                height: 16,
-              ),
-              StyledBodyTextImportant(text: "Ingredients"),
-              Builder(builder: (context) {
-                return Column(
-                  children:
-                      List.generate(testMealMap["ingredients"].length, (index) {
-                    return Row(
-                      children: [
-                        StyledBodyText(
-                            text:
-                                "${testMealMap["ingredients"][index]} - ${testMealMap["measures"][index]}"),
-                      ],
-                    );
-                  }),
-                );
-              }),
+              Container(
+                  decoration: BoxDecoration(
+                    color: StyleConstants.primaryColor,
+                    borderRadius: StyleConstants.borderRadius,
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: StyledBodyTextImportant(
+                          text: "Ingredients",
+                        ),
+                      ),
+                      Builder(builder: (context) {
+                        return Column(
+                          children: List.generate(
+                              testMealMap["ingredients"].length, (index) {
+                            return Row(
+                              children: [
+                                StyledBodyText(
+                                    text:
+                                        "${testMealMap["ingredients"][index]} - ${testMealMap["measures"][index]}"),
+                              ],
+                            );
+                          }),
+                        );
+                      }),
+                    ],
+                  )),
               StyledDivider(),
-              Column(
-                children: [
-                  StyledBodyTextImportant(
-                    text: "Steps",
-                  ),
-                  ...List.generate(testMealMap["steps"].length, (index) {
-                    return Column(
-                      children: [
-                        StyledBodyText(
-                          text: "${index + 1}. ${testMealMap["steps"][index]}",
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                      ],
-                    );
-                  }),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                ],
+              Container(
+                decoration: BoxDecoration(
+                  color: StyleConstants.primaryColor,
+                  borderRadius: StyleConstants.borderRadius,
+                ),
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    StyledBodyTextImportant(
+                      text: "Steps",
+                    ),
+                    ...List.generate(testMealMap["steps"].length, (index) {
+                      return Column(
+                        children: [
+                          StyledBodyText(
+                            text:
+                                "${index + 1}. ${testMealMap["steps"][index]}",
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
+                      );
+                    }),
+                  ],
+                ),
               ),
               StyledDivider(),
               Center(
-                child: StyledBodyTextImportant(
-                  text: "AND THAT'S IT!",
+                child: Column(
+                  children: [
+                    StyledBodyTextImportant(
+                      text: "AND THAT'S IT!",
+                    ),
+                    VerticalSpace(height: 8),
+                    StyledButton(
+                      "Back",
+                      Icons.arrow_back,
+                      () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    VerticalSpace(height: 32)
+                  ],
                 ),
               ),
-              VerticalSpace(height: 32),
             ],
           ),
         ),

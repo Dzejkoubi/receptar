@@ -3,10 +3,11 @@ import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 
 class StyledButton extends StatelessWidget {
-  const StyledButton(this.text, this.icon, {super.key});
+  const StyledButton(this.text, this.icon, this.onPressed, {super.key});
 
   final String text;
   final IconData icon;
+  final onPressed;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,13 +31,16 @@ class StyledButton extends StatelessWidget {
               },
             ),
           ),
-          onPressed: () {},
+          onPressed: onPressed,
           icon: Icon(
             icon,
             color: StyleConstants.primaryTextColor,
           ),
           label: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4.0,
+            ),
             child: StyledBodyTextImportant(
               text: text,
             ),
