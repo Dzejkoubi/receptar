@@ -4,7 +4,7 @@ import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/router/router.dart';
 
 class BottomNavBar extends StatelessWidget {
-  BottomNavBar({required this.currentIndex, super.key});
+  const BottomNavBar({required this.currentIndex, super.key});
 
   final int currentIndex;
 
@@ -12,17 +12,17 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        splashColor: StyleConstants.secondaryTextColor.withOpacity(0.1),
-        highlightColor: StyleConstants.primaryTextColor.withOpacity(0.1),
+        splashColor: StyleConstants.lowOpacityTextColor,
+        highlightColor: StyleConstants.lowOpacityTextColor,
       ),
       child: BottomNavigationBar(
         backgroundColor: StyleConstants.primaryColor,
         currentIndex: currentIndex,
         onTap: (index) {
-          final routes = [
-            const LikedRecepiesRoute(),
-            const FindRecepieRoute(),
-            const RandomRecepieRoute(),
+          final List<PageRouteInfo<dynamic>> routes = [
+            LikedRecepiesRoute(),
+            FindRecepieRoute(),
+            RandomRecepieRoute(),
           ];
           context.router.pushAndPopUntil(
             routes[index],

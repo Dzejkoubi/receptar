@@ -4,6 +4,7 @@ import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/router/router.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
+import 'package:receptar/app/shared/widgets/helper_widgets.dart';
 
 class ShowRecepieLargeTab extends StatefulWidget {
   const ShowRecepieLargeTab({super.key});
@@ -31,6 +32,7 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
             child: Row(
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.only(
@@ -38,22 +40,30 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                           bottomRight: StyleConstants.borderRadius.bottomRight),
                       child: Image.asset(
                         "assets/images/food_images/lasagne.png",
-                        height: size / 3,
-                        width: size / 3,
+                        height: size / 2,
                         fit: BoxFit.cover,
                       ),
                     ),
-                    StyledBodyTextImportant(text: "Ingredience:"),
+                    VerticalSpace(
+                      height: 8,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: StyledBodyTextImportant(text: "Ingredience:"),
+                    ),
                     Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          children: [
-                            ...List.generate(10, (index) {
-                              return StyledBodyText(
-                                  text: "Parmigiano-Reggiano$index");
-                            }),
-                          ],
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(
+                            children: [
+                              ...List.generate(10, (index) {
+                                return StyledBodyText(
+                                    text: "Parmigiano-Reggiano$index");
+                              }),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -110,8 +120,7 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                                   vertical: 4.0,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: StyleConstants.secondaryTextColor
-                                      .withOpacity(0.1),
+                                  color: StyleConstants.lowOpacityTextColor,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: StyledBodyText(

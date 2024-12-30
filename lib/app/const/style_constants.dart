@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class StyleConstants {
   // Colors
-  static const Color primaryColor = Color.fromARGB(255, 241, 207, 55);
-  static const Color backgroundColor = Color.fromARGB(255, 243, 243, 137);
+  static const Color primaryColor = Color.fromARGB(255, 250, 250, 154);
+  static const Color backgroundColor = Color.fromARGB(255, 241, 207, 55);
   static const Color primaryTextColor = Colors.black;
   static const Color secondaryTextColor = Colors.black45;
+  static const Color lowOpacityTextColor = Color.fromRGBO(0, 0, 0, 0.1);
   static const Color accentColor = Color(0xFF00BFA5);
 
   // Text Styles

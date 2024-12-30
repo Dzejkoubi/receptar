@@ -6,7 +6,9 @@ import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
 
 class ShowRecepieSmallTab extends StatefulWidget {
-  const ShowRecepieSmallTab({super.key});
+  const ShowRecepieSmallTab({
+    super.key,
+  });
 
   @override
   State<ShowRecepieSmallTab> createState() => _ShowRecepieSmallTabState();
@@ -59,8 +61,7 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
                           vertical: 4.0,
                         ),
                         decoration: BoxDecoration(
-                          color: StyleConstants.secondaryTextColor
-                              .withOpacity(0.1),
+                          color: StyleConstants.lowOpacityTextColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: StyledBodyText(
@@ -106,7 +107,7 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
                       icon: Icon(Icons.fullscreen),
                       onPressed: () {
                         AutoRouter.of(context).push(
-                          const ShowRecepieFullRoute(),
+                          ShowRecepieFullRoute(),
                         );
                       },
                     ),

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/bottom_navigation_bar.dart';
+import 'package:receptar/app/shared/widgets/helper_widgets.dart';
+import 'package:receptar/app/shared/widgets/styled_button.dart';
 import 'package:receptar/screens/show_recepie_screens/show_recepie_largetab.dart';
 import 'package:receptar/screens/show_recepie_screens/show_recepie_smalltab.dart';
 
@@ -24,8 +26,9 @@ class LikedRecepiesScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ShowRecepieSmallTab(),
-              SizedBox(height: 16),
+              VerticalSpace(height: 16),
               ShowRecepieLargeTab(),
+              VerticalSpace(height: 16),
             ],
           )),
       floatingActionButton: FloatingActionButton.small(

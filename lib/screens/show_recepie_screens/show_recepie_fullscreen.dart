@@ -4,7 +4,10 @@ import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/helper_widgets.dart';
 import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
+import 'package:receptar/app/shared/widgets/styled_divider.dart';
 import 'package:receptar/app/shared/widgets/youtube_video_widget.dart';
+import 'package:receptar/models/recepe_model.dart';
+import 'package:receptar/models/test_mode.dart';
 
 @RoutePage()
 class ShowRecepieFullScreen extends StatefulWidget {
@@ -17,8 +20,18 @@ class ShowRecepieFullScreen extends StatefulWidget {
 class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
   bool isFavorite = false;
 
-  // List to track ingredient checkboxes
-  List<bool> checkedIngredients = List.generate(10, (index) => false);
+  final Meal testMeal = MealTest.testMeal();
+  final Map testMealMap = MealTest.testMeal().toMap();
+
+  List<bool> checkListValues = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkListValues =
+        List.generate(testMealMap["ingredients"].length, (index) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +39,7 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
       backgroundColor: StyleConstants.backgroundColor,
       appBar: AppBar(
           backgroundColor: StyleConstants.backgroundColor,
-          title: const StyledHeadingText(text: "Recept"),
+          title: StyledHeadingText(text: testMealMap["name"]),
           actions: [
             FavoriteButtonWidget(
               isFavorite: isFavorite,
@@ -53,7 +66,7 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               YoutubeVideoWidget(
-                videoUrl: "https://www.youtube.com/watch?v=gfhfsBPt46s",
+                videoUrl: testMealMap["youtubeLink"],
               ),
               const VerticalSpace(height: 16),
 
@@ -63,65 +76,114 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: List.generate(5, (index) {
-                      return Container(
-                        margin: const EdgeInsets.only(right: 8.0),
+                    children: [
+                      ...List.generate(
+                        testMealMap["tags"].length,
+                        (index) {
+                          return Container(
+                            margin: const EdgeInsets.only(
+                              right: 8.0,
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0,
+                              vertical: 6.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: StyleConstants.lowOpacityTextColor,
+                              borderRadius: StyleConstants.borderRadius,
+                            ),
+                            child: StyledBodyText(
+                              text: testMealMap["tags"][index],
+                            ),
+                          );
+                        },
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          right: 8.0,
+                        ),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12.0,
                           vertical: 6.0,
                         ),
                         decoration: BoxDecoration(
-                          color: StyleConstants.secondaryTextColor
-                              .withOpacity(0.1),
+                          color: StyleConstants.lowOpacityTextColor,
                           borderRadius: StyleConstants.borderRadius,
                         ),
                         child: StyledBodyText(
-                          text: "Tag $index",
+                          text: testMealMap["category"],
                         ),
-                      );
-                    }),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          right: 8.0,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 6.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: StyleConstants.lowOpacityTextColor,
+                          borderRadius: StyleConstants.borderRadius,
+                        ),
+                        child: StyledBodyText(
+                          text: testMealMap["area"],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              VerticalSpace(height: 16),
+              StyledDivider(),
 
-              // Ingredients Section
-              const StyledBodyTextImportant(text: "Ingredience:"),
-              VerticalSpace(height: 8),
-              ListView.builder(
-                shrinkWrap:
-                    true, // Needed for use inside a SingleChildScrollView
-                physics:
-                    const NeverScrollableScrollPhysics(), // Prevent nested scrolling
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return CheckboxListTile(
-                    title: StyledBodyText(
-                      text: "Ingredient ${index + 1}",
-                    ),
-                    value: checkedIngredients[index],
-                    onChanged: (bool? value) {
-                      setState(() {
-                        checkedIngredients[index] = value!;
-                      });
-                    },
-                    controlAffinity:
-                        ListTileControlAffinity.leading, // Checkbox on the left
-                  );
-                },
+              VerticalSpace(
+                height: 16,
               ),
-              const SizedBox(height: 16),
-
-              // Steps Section
-              const StyledBodyTextImportant(text: "Postup:"),
-              const SizedBox(height: 8),
-              StyledBodyText(
-                text:
-                    "1. Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\n\n"
-                    "2. In a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\n\n"
-                    "3. Drain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.",
+              StyledBodyTextImportant(text: "Ingredients"),
+              Builder(builder: (context) {
+                return Column(
+                  children:
+                      List.generate(testMealMap["ingredients"].length, (index) {
+                    return Row(
+                      children: [
+                        StyledBodyText(
+                            text:
+                                "${testMealMap["ingredients"][index]} - ${testMealMap["measures"][index]}"),
+                      ],
+                    );
+                  }),
+                );
+              }),
+              StyledDivider(),
+              Column(
+                children: [
+                  StyledBodyTextImportant(
+                    text: "Steps",
+                  ),
+                  ...List.generate(testMealMap["steps"].length, (index) {
+                    return Column(
+                      children: [
+                        StyledBodyText(
+                          text: "${index + 1}. ${testMealMap["steps"][index]}",
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                      ],
+                    );
+                  }),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
+              StyledDivider(),
+              Center(
+                child: StyledBodyTextImportant(
+                  text: "AND THAT'S IT!",
+                ),
+              ),
+              VerticalSpace(height: 32),
             ],
           ),
         ),
