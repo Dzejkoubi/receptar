@@ -203,9 +203,9 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                     ),
                     VerticalSpace(height: 8),
                     StyledButton(
-                      "Back",
-                      Icons.arrow_back,
-                      () {
+                      text: "Back",
+                      icon: Icons.arrow_back,
+                      onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),

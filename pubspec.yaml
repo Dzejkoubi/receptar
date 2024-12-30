@@ -17,6 +17,8 @@ dependencies:
   auto_route: ^9.2.2
   http: ^1.2.2
   youtube_player_flutter: ^9.1.1
+  flutter_svg: ^2.0.16
+  flutter_animate: ^4.5.2
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +34,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/food_images/lasagne.png
+    - assets/svg/random_dice_icon.svg
   fonts:
     - family: Baloo_2
       fonts:

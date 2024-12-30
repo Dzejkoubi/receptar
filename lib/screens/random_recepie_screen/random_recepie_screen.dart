@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/bottom_navigation_bar.dart';
-import 'package:receptar/screens/random_recepie_screen/find_random_recepie_button.dart';
+import 'package:receptar/app/shared/widgets/styled_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 @RoutePage()
 class RandomRecepieScreen extends StatelessWidget {
@@ -23,7 +24,11 @@ class RandomRecepieScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FindRandomRecepieButton(),
+              StyledButton(
+                text: "Find random recepie",
+                icon: Icons.shuffle,
+                onPressed: () {},
+              )
             ],
           ),
         ),

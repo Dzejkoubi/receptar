@@ -9,7 +9,6 @@ class Meal {
   final String? youtubeLink;
   final List<String> ingredients;
   final List<String> measures;
-  final String? imageLink;
 
   // Constructor
   Meal({
@@ -23,7 +22,6 @@ class Meal {
     this.youtubeLink,
     required this.ingredients,
     required this.measures,
-    required this.imageLink,
   });
 
   // Factory constructor to parse JSON into Meal object
@@ -63,7 +61,6 @@ class Meal {
       youtubeLink: json['strYoutube'],
       ingredients: ingredients,
       measures: measures,
-      imageLink: json['strImageSource'],
     );
   }
 
@@ -80,7 +77,6 @@ class Meal {
       'youtubeLink': youtubeLink,
       'ingredients': ingredients,
       'measures': measures,
-      'imageLink': imageLink,
     };
   }
 }

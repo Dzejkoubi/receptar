@@ -5,9 +5,35 @@ import 'package:receptar/app/router/router.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
 import 'package:receptar/app/shared/widgets/helper_widgets.dart';
+import 'package:receptar/app/shared/widgets/styled_button.dart';
+import 'package:receptar/models/recepe_model.dart';
+import 'package:receptar/models/test_mode.dart';
 
 class ShowRecepieLargeTab extends StatefulWidget {
-  const ShowRecepieLargeTab({super.key});
+  const ShowRecepieLargeTab({
+    required this.id,
+    required this.name,
+    this.category,
+    this.area,
+    required this.steps,
+    this.thumbPhoto,
+    required this.tags,
+    this.youtubeLink,
+    required this.ingredients,
+    required this.measures,
+    super.key,
+  });
+
+  final String id;
+  final String name;
+  final String? category;
+  final String? area;
+  final List<String> steps;
+  final String? thumbPhoto;
+  final List<String> tags;
+  final String? youtubeLink;
+  final List<String> ingredients;
+  final List<String> measures;
 
   @override
   State<ShowRecepieLargeTab> createState() => _ShowRecepieLargeTabState();
@@ -38,8 +64,8 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                       borderRadius: BorderRadius.only(
                           topLeft: StyleConstants.borderRadius.topLeft,
                           bottomRight: StyleConstants.borderRadius.bottomRight),
-                      child: Image.asset(
-                        "assets/images/food_images/lasagne.png",
+                      child: Image.network(
+                        widget.thumbPhoto.toString() ?? '',
                         height: size / 2,
                         fit: BoxFit.cover,
                       ),
@@ -58,9 +84,10 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                           scrollDirection: Axis.vertical,
                           child: Column(
                             children: [
-                              ...List.generate(10, (index) {
+                              ...List.generate(widget.ingredients.length,
+                                  (index) {
                                 return StyledBodyText(
-                                    text: "Parmigiano-Reggiano$index");
+                                    text: widget.ingredients[index]);
                               }),
                             ],
                           ),
@@ -77,7 +104,7 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                       children: [
                         Row(
                           children: [
-                            StyledBodyTextImportant(text: "Recept"),
+                            StyledBodyTextImportant(text: widget.name),
                             Expanded(child: Container()),
                             Row(
                               children: [
@@ -111,8 +138,8 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(5, (index) {
+                          child: Row(children: [
+                            ...List.generate(widget.tags.length, (index) {
                               return Container(
                                 margin: const EdgeInsets.only(right: 8.0),
                                 padding: const EdgeInsets.symmetric(
@@ -124,18 +151,69 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: StyledBodyText(
-                                  text: "Tag $index",
+                                  text: widget.tags[index],
                                 ),
                               );
                             }),
-                          ),
+                            Container(
+                              margin: const EdgeInsets.only(right: 8.0),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0,
+                                vertical: 4.0,
+                              ),
+                              decoration: BoxDecoration(
+                                color: StyleConstants.lowOpacityTextColor,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: StyledBodyText(
+                                text: widget.category.toString(),
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(right: 8.0),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0,
+                                vertical: 4.0,
+                              ),
+                              decoration: BoxDecoration(
+                                color: StyleConstants.lowOpacityTextColor,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: StyledBodyText(
+                                text: widget.area.toString(),
+                              ),
+                            ),
+                          ]),
                         ),
                         StyledBodyTextImportant(text: "Postup:"),
                         Expanded(
                           child: SingleChildScrollView(
-                            child: StyledBodyText(
-                              text:
-                                  "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.",
+                            child: Column(
+                              children: [
+                                ...List.generate(widget.steps.length, (index) {
+                                  return Column(
+                                    children: [
+                                      StyledBodyText(
+                                        text:
+                                            "${index + 1}. ${widget.steps[index]}",
+                                      ),
+                                      VerticalSpace(
+                                        height: 8,
+                                      ),
+                                    ],
+                                  );
+                                }),
+                                Center(
+                                    child: StyledButton(
+                                  text: "Full Screen",
+                                  icon: Icons.fullscreen,
+                                  onPressed: () {
+                                    AutoRouter.of(context).push(
+                                      const ShowRecepieFullRoute(),
+                                    );
+                                  },
+                                ))
+                              ],
                             ),
                           ),
                         ),

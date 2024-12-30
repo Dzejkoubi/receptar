@@ -3,11 +3,13 @@ import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 
 class StyledButton extends StatelessWidget {
-  const StyledButton(this.text, this.icon, this.onPressed, {super.key});
+  const StyledButton(
+      {this.text = '', this.icon = Icons.help, this.onPressed, super.key});
 
   final String text;
   final IconData icon;
   final onPressed;
+
   @override
   Widget build(BuildContext context) {
     return Container(

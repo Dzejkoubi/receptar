@@ -56,7 +56,6 @@ class MealTest {
         "50g",
         "Topping",
       ],
-      imageLink: null,
     );
   }
 }

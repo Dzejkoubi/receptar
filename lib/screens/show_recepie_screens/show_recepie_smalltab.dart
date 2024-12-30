@@ -4,11 +4,34 @@ import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/router/router.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
+import 'package:receptar/models/recepe_model.dart';
+import 'package:receptar/models/test_mode.dart';
 
 class ShowRecepieSmallTab extends StatefulWidget {
   const ShowRecepieSmallTab({
+    required this.id,
+    required this.name,
+    this.category,
+    this.area,
+    required this.steps,
+    this.thumbPhoto,
+    required this.tags,
+    this.youtubeLink,
+    required this.ingredients,
+    required this.measures,
     super.key,
   });
+
+  final String id;
+  final String name;
+  final String? category;
+  final String? area;
+  final List<String> steps;
+  final String? thumbPhoto;
+  final List<String> tags;
+  final String? youtubeLink;
+  final List<String> ingredients;
+  final List<String> measures;
 
   @override
   State<ShowRecepieSmallTab> createState() => _ShowRecepieSmallTabState();
@@ -32,11 +55,19 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
             borderRadius: BorderRadius.only(
                 topLeft: StyleConstants.borderRadius.topLeft,
                 bottomLeft: StyleConstants.borderRadius.bottomLeft),
-            child: Image.asset(
-              "assets/images/food_images/lasagne.png",
+            child: Image.network(
+              widget.thumbPhoto.toString() ?? '',
               height: 100,
               width: 100,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  height: 100,
+                  width: 100,
+                  color: Colors.grey,
+                  child: Icon(Icons.image_not_supported_rounded),
+                );
+              },
             ),
           ),
           Container(
@@ -48,12 +79,12 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const StyledBodyTextImportant(text: "Recept"),
+              StyledBodyTextImportant(text: widget.name),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    ...List.generate(5, (index) {
+                    ...List.generate(widget.tags.length, (index) {
                       return Container(
                         margin: const EdgeInsets.only(right: 8.0),
                         padding: const EdgeInsets.symmetric(
@@ -65,10 +96,38 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: StyledBodyText(
-                          text: "Tag $index",
+                          text: widget.tags[index],
                         ),
                       );
-                    })
+                    }),
+                    Container(
+                      margin: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 4.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: StyleConstants.lowOpacityTextColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: StyledBodyText(
+                        text: widget.category.toString(),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 4.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: StyleConstants.lowOpacityTextColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: StyledBodyText(
+                        text: widget.area.toString(),
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -113,7 +172,9 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
                     ),
                   ],
                 ),
-                StyledBodyText(text: "Pokročilé"),
+                StyledBodyText(
+                  text: "${widget.ingredients.length} ing.",
+                ),
               ],
             ),
           )
