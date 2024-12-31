@@ -32,15 +32,15 @@ class BottomNavBar extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border_rounded),
-            label: 'Oblíbené',
+            label: 'Favorite',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search_rounded),
-            label: 'Najít',
+            label: 'Find',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shuffle_rounded),
-            label: 'Náhodný',
+            label: 'Random',
           ),
         ],
         // Styles

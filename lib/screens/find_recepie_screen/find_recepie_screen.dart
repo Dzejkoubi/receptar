@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/bottom_navigation_bar.dart';
@@ -22,7 +21,7 @@ class _FindRecepieScreenState extends State<FindRecepieScreen> {
       backgroundColor: StyleConstants.backgroundColor,
       appBar: AppBar(
         backgroundColor: StyleConstants.backgroundColor,
-        title: const StyledHeadingText(text: "Najít recept"),
+        title: const StyledHeadingText(text: "Find a recipe"),
       ),
       body: Center(
         child: Column(

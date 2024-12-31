@@ -4,7 +4,6 @@ import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/bottom_navigation_bar.dart';
 import 'package:receptar/app/shared/widgets/styled_button.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 @RoutePage()
 class RandomRecepieScreen extends StatelessWidget {
@@ -15,7 +14,7 @@ class RandomRecepieScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: StyleConstants.backgroundColor,
       appBar: AppBar(
-        title: const StyledHeadingText(text: "Náhodný recept"),
+        title: const StyledHeadingText(text: "Random recepie"),
         backgroundColor: StyleConstants.backgroundColor,
       ),
       body: Padding(

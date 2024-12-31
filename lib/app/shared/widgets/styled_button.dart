@@ -8,6 +8,7 @@ class StyledButton extends StatelessWidget {
 
   final String text;
   final IconData icon;
+  // ignore: prefer_typing_uninitialized_variables
   final onPressed;
 
   @override
