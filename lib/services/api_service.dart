@@ -30,7 +30,6 @@ class ApiService {
   // Get random meal
   Future<Map<String, dynamic>?> getRandomMeal() async {
     final data = await getRequest(ApiConstants.randomMeal);
-    print(data);
     return data['meals'] != null ? data['meals'][0] : null;
   }
 
