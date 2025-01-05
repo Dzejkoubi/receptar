@@ -121,30 +121,40 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Row with Title + Buttons
-                      Row(
-                        children: [
-                          StyledBodyTextImportant(text: widget.name),
-                          const Spacer(),
-
-                          // Favorite Button
-                          FavoriteButtonWidget(
-                            isFavorite: isFavorite,
-                            onChanged: (newValue) {
-                              setState(() {
-                                isFavorite = newValue;
-                              });
-                            },
-                          ),
-                          // Collapse icon triggers the callback
-                          IconButton(
-                            icon: const Icon(Icons.fullscreen),
-                            onPressed: () {
-                              AutoRouter.of(context).push(
-                                ShowRecepieFullRoute(),
-                              );
-                            },
-                          ),
-                        ],
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            StyledBodyTextImportant(text: widget.name),
+                            const SizedBox(width: 8),
+                            FavoriteButtonWidget(
+                              isFavorite: isFavorite,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  isFavorite = newValue;
+                                });
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.fullscreen),
+                              onPressed: () {
+                                AutoRouter.of(context)
+                                    .push(ShowRecepieFullRoute(
+                                  id: widget.id,
+                                  name: widget.name,
+                                  category: widget.category,
+                                  area: widget.area,
+                                  steps: widget.steps,
+                                  thumbPhoto: widget.thumbPhoto,
+                                  tags: widget.tags,
+                                  youtubeLink: widget.youtubeLink,
+                                  ingredients: widget.ingredients,
+                                  measures: widget.measures,
+                                ));
+                              },
+                            ),
+                          ],
+                        ),
                       ),
 
                       // Tags row
@@ -186,7 +196,18 @@ class _ShowRecepieLargeTabState extends State<ShowRecepieLargeTab> {
                                 icon: Icons.fullscreen,
                                 onPressed: () {
                                   AutoRouter.of(context).push(
-                                    const ShowRecepieFullRoute(),
+                                    ShowRecepieFullRoute(
+                                      id: widget.id,
+                                      name: widget.name,
+                                      category: widget.category,
+                                      area: widget.area,
+                                      steps: widget.steps,
+                                      thumbPhoto: widget.thumbPhoto,
+                                      tags: widget.tags,
+                                      youtubeLink: widget.youtubeLink,
+                                      ingredients: widget.ingredients,
+                                      measures: widget.measures,
+                                    ),
                                   );
                                 },
                               ))

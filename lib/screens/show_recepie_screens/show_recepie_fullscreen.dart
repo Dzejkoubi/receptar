@@ -7,12 +7,33 @@ import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
 import 'package:receptar/app/shared/widgets/styled_button.dart';
 import 'package:receptar/app/shared/widgets/styled_divider.dart';
 import 'package:receptar/app/shared/widgets/youtube_video_widget.dart';
-import 'package:receptar/models/recepe_model.dart';
-import 'package:receptar/models/test_mode.dart';
 
 @RoutePage()
 class ShowRecepieFullScreen extends StatefulWidget {
-  const ShowRecepieFullScreen({super.key});
+  const ShowRecepieFullScreen({
+    required this.id,
+    required this.name,
+    this.category,
+    this.area,
+    required this.steps,
+    this.thumbPhoto,
+    required this.tags,
+    this.youtubeLink,
+    required this.ingredients,
+    required this.measures,
+    super.key,
+  });
+
+  final String id;
+  final String name;
+  final String? category;
+  final String? area;
+  final List<String> steps;
+  final String? thumbPhoto;
+  final List<String> tags;
+  final String? youtubeLink;
+  final List<String> ingredients;
+  final List<String> measures;
 
   @override
   State<ShowRecepieFullScreen> createState() => _ShowRecepieFullScreenState();
@@ -21,26 +42,13 @@ class ShowRecepieFullScreen extends StatefulWidget {
 class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
   bool isFavorite = false;
 
-  final Meal testMeal = MealTest.testMeal();
-  final Map testMealMap = MealTest.testMeal().toMap();
-
-  List<bool> checkListValues = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    checkListValues =
-        List.generate(testMealMap["ingredients"].length, (index) => false);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: StyleConstants.backgroundColor,
       appBar: AppBar(
           backgroundColor: StyleConstants.backgroundColor,
-          title: StyledHeadingText(text: testMealMap["name"]),
+          title: StyledHeadingText(text: widget.name),
           actions: [
             FavoriteButtonWidget(
               isFavorite: isFavorite,
@@ -67,7 +75,7 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               YoutubeVideoWidget(
-                videoUrl: testMealMap["youtubeLink"],
+                videoUrl: widget.youtubeLink ?? '',
               ),
               const VerticalSpace(height: 16),
 
@@ -79,7 +87,7 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ...List.generate(
-                        testMealMap["tags"].length,
+                        widget.tags.length,
                         (index) {
                           return Container(
                             margin: const EdgeInsets.only(
@@ -94,7 +102,7 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                               borderRadius: StyleConstants.borderRadius,
                             ),
                             child: StyledBodyTextImportant(
-                              text: testMealMap["tags"][index],
+                              text: widget.tags[index],
                             ),
                           );
                         },
@@ -112,7 +120,7 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                           borderRadius: StyleConstants.borderRadius,
                         ),
                         child: StyledBodyTextImportant(
-                          text: testMealMap["category"],
+                          text: widget.category ?? '',
                         ),
                       ),
                       Container(
@@ -128,7 +136,7 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                           borderRadius: StyleConstants.borderRadius,
                         ),
                         child: StyledBodyTextImportant(
-                          text: testMealMap["area"],
+                          text: widget.area ?? '',
                         ),
                       ),
                     ],
@@ -152,13 +160,13 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                       ),
                       Builder(builder: (context) {
                         return Column(
-                          children: List.generate(
-                              testMealMap["ingredients"].length, (index) {
+                          children:
+                              List.generate(widget.ingredients.length, (index) {
                             return Row(
                               children: [
                                 StyledBodyText(
                                     text:
-                                        "${testMealMap["ingredients"][index]} - ${testMealMap["measures"][index]}"),
+                                        "${widget.ingredients[index]} - ${widget.measures[index]}"),
                               ],
                             );
                           }),
@@ -178,12 +186,11 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
                     StyledBodyTextImportant(
                       text: "Steps",
                     ),
-                    ...List.generate(testMealMap["steps"].length, (index) {
+                    ...List.generate(widget.steps.length, (index) {
                       return Column(
                         children: [
                           StyledBodyText(
-                            text:
-                                "${index + 1}. ${testMealMap["steps"][index]}",
+                            text: "${index + 1}. ${widget.steps[index]}",
                           ),
                           const SizedBox(
                             height: 8,

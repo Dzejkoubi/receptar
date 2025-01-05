@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/bottom_navigation_bar.dart';
+import 'package:receptar/app/shared/widgets/helper_widgets.dart';
 import 'package:receptar/app/shared/widgets/styled_button.dart';
+import 'package:receptar/models/recepe_model.dart';
+import 'package:receptar/screens/show_recepie_screens/show_recepie_expandable_tab.dart';
 import 'package:receptar/services/api_service.dart';
 
 @RoutePage()
@@ -15,34 +18,29 @@ class RandomRecepieScreen extends StatefulWidget {
 }
 
 class _RandomRecepieScreenState extends State<RandomRecepieScreen> {
-  final ApiService _apiService = ApiService();
+  bool _isLoading = false;
+  bool _isError = false;
 
-  Map<String, dynamic>? meal;
-  bool isLoading = false;
-  bool hasError = false;
+  Map<String, dynamic>? _randomMeal;
 
-  Future<void> _fetchRandomMeal() async {
+  void randomRecepieButtonPressed() {
+    Map<String, dynamic>? randomMeal;
     setState(() {
-      isLoading = true;
-      hasError = false;
+      _isLoading = true;
+      _isError = false;
     });
-
-    try {
-      final result = await _apiService.getRandomMeal();
-      if (result != null) {
-        setState(() {
-          meal = result;
-        });
-      }
-    } catch (e) {
+    ApiService().getRandomMeal().then((meal) {
       setState(() {
-        hasError = true;
+        randomMeal = meal;
+        _isLoading = false;
+        _randomMeal = Meal.fromJson(randomMeal!).toMap();
       });
-    } finally {
+    }).catchError((error) {
       setState(() {
-        isLoading = false;
+        _isLoading = false;
+        _isError = true;
       });
-    }
+    });
   }
 
   @override
@@ -56,19 +54,66 @@ class _RandomRecepieScreenState extends State<RandomRecepieScreen> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              StyledButton(
-                text: "Find random recepie",
-                icon: Icons.shuffle,
-                onPressed: () {
-                  _fetchRandomMeal();
-                  print(meal?["tags"]);
-                },
-              )
-            ],
-          ),
+          child: _isLoading
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 20),
+                    StyledButton(
+                      text: "Cancel",
+                      icon: Icons.cancel,
+                      onPressed: () {
+                        setState(() {
+                          _isLoading = false;
+                        });
+                      },
+                    ),
+                  ],
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    StyledButton(
+                      text: "Find random recepie",
+                      icon: Icons.shuffle,
+                      onPressed: () {
+                        randomRecepieButtonPressed();
+                      },
+                    ),
+                    VerticalSpace(height: 20),
+                    if (_randomMeal != null)
+                      ShowRecepieExpandableTab(
+                        id: _randomMeal!["id"],
+                        name: _randomMeal!["name"],
+                        category: _randomMeal!["category"],
+                        area: _randomMeal!["area"],
+                        steps: _randomMeal!["steps"],
+                        thumbPhoto: _randomMeal!["thumbPhoto"],
+                        tags: _randomMeal!["tags"],
+                        youtubeLink: _randomMeal!["youtubeLink"],
+                        ingredients: _randomMeal!["ingredients"],
+                        measures: _randomMeal!["measures"],
+                      ),
+                    if (_isError)
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          StyledBodyText(text: "Failed to load data"),
+                          const SizedBox(height: 20),
+                          StyledButton(
+                            text: "Cancel",
+                            icon: Icons.cancel,
+                            onPressed: () {
+                              setState(() {
+                                _isLoading = false;
+                              });
+                            },
+                          ),
+                        ],
+                      )
+                  ],
+                ),
         ),
       ),
       bottomNavigationBar: BottomNavBar(currentIndex: 2),

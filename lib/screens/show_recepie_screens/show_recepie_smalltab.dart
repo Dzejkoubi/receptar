@@ -86,7 +86,13 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  StyledBodyTextImportant(text: widget.name),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: StyledBodyTextImportant(text: widget.name),
+                    ),
+                  ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -146,7 +152,18 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
                         icon: const Icon(Icons.fullscreen),
                         onPressed: () {
                           AutoRouter.of(context).push(
-                            ShowRecepieFullRoute(),
+                            ShowRecepieFullRoute(
+                              id: widget.id,
+                              name: widget.name,
+                              category: widget.category,
+                              area: widget.area,
+                              steps: widget.steps,
+                              thumbPhoto: widget.thumbPhoto,
+                              tags: widget.tags,
+                              youtubeLink: widget.youtubeLink,
+                              ingredients: widget.ingredients,
+                              measures: widget.measures,
+                            ),
                           );
                         },
                       ),

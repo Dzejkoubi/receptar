@@ -68,10 +68,33 @@ class RandomRecepieRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ShowRecepieFullScreen]
-class ShowRecepieFullRoute extends PageRouteInfo<void> {
-  const ShowRecepieFullRoute({List<PageRouteInfo>? children})
-      : super(
+class ShowRecepieFullRoute extends PageRouteInfo<ShowRecepieFullRouteArgs> {
+  ShowRecepieFullRoute({
+    required String id,
+    required String name,
+    String? category,
+    String? area,
+    required List<String> steps,
+    String? thumbPhoto,
+    required List<String> tags,
+    String? youtubeLink,
+    required List<String> ingredients,
+    required List<String> measures,
+    List<PageRouteInfo>? children,
+  }) : super(
           ShowRecepieFullRoute.name,
+          args: ShowRecepieFullRouteArgs(
+            id: id,
+            name: name,
+            category: category,
+            area: area,
+            steps: steps,
+            thumbPhoto: thumbPhoto,
+            tags: tags,
+            youtubeLink: youtubeLink,
+            ingredients: ingredients,
+            measures: measures,
+          ),
           initialChildren: children,
         );
 
@@ -80,9 +103,61 @@ class ShowRecepieFullRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ShowRecepieFullScreen();
+      final args = data.argsAs<ShowRecepieFullRouteArgs>();
+      return ShowRecepieFullScreen(
+        id: args.id,
+        name: args.name,
+        category: args.category,
+        area: args.area,
+        steps: args.steps,
+        thumbPhoto: args.thumbPhoto,
+        tags: args.tags,
+        youtubeLink: args.youtubeLink,
+        ingredients: args.ingredients,
+        measures: args.measures,
+      );
     },
   );
+}
+
+class ShowRecepieFullRouteArgs {
+  const ShowRecepieFullRouteArgs({
+    required this.id,
+    required this.name,
+    this.category,
+    this.area,
+    required this.steps,
+    this.thumbPhoto,
+    required this.tags,
+    this.youtubeLink,
+    required this.ingredients,
+    required this.measures,
+  });
+
+  final String id;
+
+  final String name;
+
+  final String? category;
+
+  final String? area;
+
+  final List<String> steps;
+
+  final String? thumbPhoto;
+
+  final List<String> tags;
+
+  final String? youtubeLink;
+
+  final List<String> ingredients;
+
+  final List<String> measures;
+
+  @override
+  String toString() {
+    return 'ShowRecepieFullRouteArgs{id: $id, name: $name, category: $category, area: $area, steps: $steps, thumbPhoto: $thumbPhoto, tags: $tags, youtubeLink: $youtubeLink, ingredients: $ingredients, measures: $measures}';
+  }
 }
 
 /// generated route for
