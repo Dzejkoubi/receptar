@@ -24,16 +24,14 @@ class _RandomRecepieScreenState extends State<RandomRecepieScreen> {
   Map<String, dynamic>? _randomMeal;
 
   void randomRecepieButtonPressed() {
-    Map<String, dynamic>? randomMeal;
     setState(() {
       _isLoading = true;
       _isError = false;
     });
     ApiService().getRandomMeal().then((meal) {
       setState(() {
-        randomMeal = meal;
+        _randomMeal = Meal.fromJson(meal!).toMap();
         _isLoading = false;
-        _randomMeal = Meal.fromJson(randomMeal!).toMap();
       });
     }).catchError((error) {
       setState(() {

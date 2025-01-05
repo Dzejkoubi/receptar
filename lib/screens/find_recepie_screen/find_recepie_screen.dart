@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/bottom_navigation_bar.dart';
+import 'package:receptar/app/shared/widgets/helper_widgets.dart';
+import 'package:receptar/app/shared/widgets/styled_button.dart';
+import 'package:receptar/app/shared/widgets/styled_divider.dart';
+import 'package:receptar/models/recepe_model.dart';
+import 'package:receptar/screens/show_recepie_screens/show_recepie_expandable_tab.dart';
+import 'package:receptar/services/api_service.dart';
 
 @RoutePage()
 class FindRecepieScreen extends StatefulWidget {
@@ -13,7 +19,30 @@ class FindRecepieScreen extends StatefulWidget {
 }
 
 class _FindRecepieScreenState extends State<FindRecepieScreen> {
-  final TextEditingController searchTextController = TextEditingController();
+  final TextEditingController _searchTextController = TextEditingController();
+
+  bool _isLoading = false;
+  bool _isError = false;
+
+  List<Map<String, dynamic>>? _mealsList;
+
+  void seatchButtonPressed() {
+    setState(() {
+      _isLoading = true;
+      _isError = false;
+    });
+    ApiService().searchMealByName(_searchTextController.text).then((meals) {
+      setState(() {
+        _mealsList = meals.map((meal) => Meal.fromJson(meal).toMap()).toList();
+        _isLoading = false;
+      });
+    }).catchError((error) {
+      setState(() {
+        _isLoading = false;
+        _isError = true;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,44 +52,92 @@ class _FindRecepieScreenState extends State<FindRecepieScreen> {
         backgroundColor: StyleConstants.backgroundColor,
         title: const StyledHeadingText(text: "Find a recipe"),
       ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-              child: TextField(
-                autofocus: true,
-                controller: searchTextController,
-                decoration: InputDecoration(
-                  hintText: "Find a recipe",
-                  hintStyle: TextStyle(
-                    color: StyleConstants.secondaryTextColor,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: StyleConstants.secondaryTextColor,
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      Icons.clear,
-                      color: StyleConstants.secondaryTextColor,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      cursorColor: StyleConstants.primaryTextColor,
+                      autofocus: true,
+                      controller: _searchTextController,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12), // Adjusted padding
+                        hintText: "Find a recipe",
+                        hintStyle: TextStyle(
+                          color: StyleConstants.secondaryTextColor,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.clear,
+                            color: StyleConstants.secondaryTextColor,
+                          ),
+                          onPressed: () {
+                            _searchTextController.clear();
+                          },
+                        ),
+                        filled: true,
+                        fillColor: StyleConstants.primaryColor,
+                        border: OutlineInputBorder(
+                          borderRadius: StyleConstants.borderRadius,
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
                     ),
+                  ),
+                  const HorizontalSpace(width: 8),
+                  StyledButton(
+                    text: "Search",
                     onPressed: () {
-                      searchTextController.clear();
+                      seatchButtonPressed();
                     },
+                    icon: Icons.search,
                   ),
-                  filled: true,
-                  fillColor: StyleConstants.primaryColor,
-                  border: OutlineInputBorder(
-                    borderRadius: StyleConstants.borderRadius,
-                    borderSide: BorderSide.none,
-                  ),
-                ),
+                ],
               ),
-            ),
-          ],
+              StyledDivider(),
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : _isError
+                      ? const StyledBodyTextImportant(
+                          text: "Error loading data",
+                        )
+                      : _mealsList == null
+                          ? const StyledBodyTextImportant(
+                              text: "No recepies found",
+                            )
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: _mealsList!.length,
+                                itemBuilder: (context, index) {
+                                  final meal = _mealsList![index];
+                                  return Column(
+                                    children: [
+                                      ShowRecepieExpandableTab(
+                                        id: meal["id"],
+                                        name: meal["name"],
+                                        category: meal["category"],
+                                        area: meal["area"],
+                                        steps: meal["steps"],
+                                        thumbPhoto: meal["thumbPhoto"],
+                                        tags: meal["tags"],
+                                        youtubeLink: meal["youtubeLink"],
+                                        ingredients: meal["ingredients"],
+                                        measures: meal["measures"],
+                                      ),
+                                      const VerticalSpace(height: 16),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavBar(currentIndex: 1),

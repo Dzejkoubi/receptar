@@ -28,7 +28,7 @@ class _LikedRecepiesScreenState extends State<LikedRecepiesScreen> {
         title: const StyledHeadingText(text: "Liked recepies"),
       ),
       body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
