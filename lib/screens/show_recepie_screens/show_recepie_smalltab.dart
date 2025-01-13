@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/router/router.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
+import 'package:receptar/providers/liked_provider.dart';
 
 class ShowRecepieSmallTab extends StatefulWidget {
   const ShowRecepieSmallTab({
@@ -39,6 +41,13 @@ class ShowRecepieSmallTab extends StatefulWidget {
 
 class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
   bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = context.read<LikedProvider>().isLiked(widget.id);
+    print(isFavorite);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,9 +150,18 @@ class _ShowRecepieSmallTabState extends State<ShowRecepieSmallTab> {
                       FavoriteButtonWidget(
                         isFavorite: isFavorite,
                         onChanged: (newValue) {
-                          setState(() {
-                            isFavorite = newValue;
-                          });
+                          if (context
+                              .read<LikedProvider>()
+                              .isLiked(widget.id)) {
+                            context
+                                .read<LikedProvider>()
+                                .removeRecipe(widget.id);
+                          } else {
+                            context.read<LikedProvider>().addRecipe(widget.id);
+                            setState(() {
+                              isFavorite = newValue;
+                            });
+                          }
                         },
                       ),
 

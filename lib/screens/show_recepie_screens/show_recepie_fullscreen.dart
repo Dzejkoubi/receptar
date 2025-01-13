@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/helper_widgets.dart';
@@ -7,6 +8,7 @@ import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
 import 'package:receptar/app/shared/widgets/styled_button.dart';
 import 'package:receptar/app/shared/widgets/styled_divider.dart';
 import 'package:receptar/app/shared/widgets/youtube_video_widget.dart';
+import 'package:receptar/providers/liked_provider.dart';
 
 @RoutePage()
 class ShowRecepieFullScreen extends StatefulWidget {
@@ -43,6 +45,12 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
   bool isFavorite = false;
 
   @override
+  void initState() {
+    super.initState();
+    isFavorite = context.read<LikedProvider>().isLiked(widget.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: StyleConstants.backgroundColor,
@@ -52,18 +60,14 @@ class _ShowRecepieFullScreenState extends State<ShowRecepieFullScreen> {
           actions: [
             FavoriteButtonWidget(
               isFavorite: isFavorite,
-              size: 28,
               onChanged: (newValue) {
                 setState(() {
                   isFavorite = newValue;
                 });
-
-                // Additional logic for handling favorites
-                // DO LATER
-                if (newValue) {
-                  print("Added to favorites!");
+                if (context.read<LikedProvider>().isLiked(widget.id)) {
+                  context.read<LikedProvider>().removeRecipe(widget.id);
                 } else {
-                  print("Removed from favorites!");
+                  context.read<LikedProvider>().addRecipe(widget.id);
                 }
               },
             ),

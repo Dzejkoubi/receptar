@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:receptar/app/router/router.dart';
+import 'package:receptar/providers/liked_provider.dart';
 
 void main() {
-  runApp(App());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => LikedProvider(),
+        ),
+      ],
+      child: App(),
+    ),
+  );
+  ;
 }
 
 class App extends StatelessWidget {

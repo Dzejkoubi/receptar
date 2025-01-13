@@ -1,12 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:receptar/app/const/style_constants.dart';
 import 'package:receptar/app/shared/styled/styled_text.dart';
 import 'package:receptar/app/shared/widgets/bottom_navigation_bar.dart';
+import 'package:receptar/app/shared/widgets/favorites_button_widget.dart';
 import 'package:receptar/app/shared/widgets/helper_widgets.dart';
 import 'package:receptar/app/shared/widgets/styled_button.dart';
 import 'package:receptar/app/shared/widgets/styled_divider.dart';
 import 'package:receptar/models/recepe_model.dart';
+import 'package:receptar/providers/liked_provider.dart';
 import 'package:receptar/screens/show_recepie_screens/show_recepie_expandable_tab.dart';
 import 'package:receptar/services/api_service.dart';
 
@@ -139,6 +142,16 @@ class _FindRecepieScreenState extends State<FindRecepieScreen> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          for (int i = 0;
+              i < context.read<LikedProvider>().likedRecipes.length;
+              i++) {
+            print(context.read<LikedProvider>().likedRecipes[i]);
+          }
+        },
+        child: const Icon(Icons.shuffle),
       ),
       bottomNavigationBar: BottomNavBar(currentIndex: 1),
     );
